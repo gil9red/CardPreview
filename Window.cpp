@@ -10,6 +10,7 @@ Window::Window(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(&scene);
+    ui->graphicsView->scale(3.0, 3.0);
     ui->table->setModel(&model);
 
     ui->splitter->setSizes(QList <int> () << 1);
@@ -18,7 +19,10 @@ Window::Window(QWidget *parent) :
     scene.addItem(card);
     model.setScene(&scene, card);
 
-    ui->graphicsView->scale(3.0, 3.0);
+    QObject::connect(ui->table->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                     SLOT(tableSelectionChanged(QItemSelection,QItemSelection)));
+
+    tableSelectionChanged(QItemSelection(), QItemSelection());
 }
 
 Window::~Window()
@@ -34,4 +38,8 @@ void Window::on_tb_rem_clicked()
 {
     const int index = ui->table->currentIndex().row();
     model.remove(index);
+}
+
+void Window::tableSelectionChanged(const QItemSelection &, const QItemSelection &) {
+    ui->tb_rem->setEnabled(ui->table->selectionModel()->hasSelection());
 }

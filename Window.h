@@ -8,6 +8,7 @@ class Window;
 }
 
 #include <QGraphicsScene>
+#include <QItemSelection>
 #include "designcardmodel.h"
 
 
@@ -22,6 +23,7 @@ public:
 private slots:
     void on_tb_add_clicked();
     void on_tb_rem_clicked();
+    void tableSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
 
 private:
     Ui::Window *ui;

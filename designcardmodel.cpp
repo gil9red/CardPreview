@@ -16,7 +16,7 @@ int DesignCardModel::rowCount(const QModelIndex &) const {
     return elements.length();
 }
 int DesignCardModel::columnCount(const QModelIndex &) const {
-    return 3; // x, y и text
+    return COLUMN_COUNTS;
 }
 
 QModelIndex DesignCardModel::index(int row, int column, const QModelIndex &) const {
@@ -32,17 +32,20 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
     if (!index.isValid())
         return QVariant();
 
-    if (role == Qt::DisplayRole) {
-        QGraphicsSimpleTextItem * item = static_cast <QGraphicsSimpleTextItem *> (index.internalPointer());
+    if (role == Qt::DisplayRole || role == Qt::EditRole) {
+        DesigntTextItem * item = static_cast <DesigntTextItem *> (index.internalPointer());
         switch (index.column()) {
-        case 0:
+        case POS_X:
             return item->x();
 
-        case 1:
+        case POS_Y:
             return item->y();
 
-        case 2:
+        case TEXT:
             return item->text();
+
+        case TEXT_SIZE:
+            return item->textSize();
 
         default:
             return QVariant();
@@ -52,22 +55,29 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
         return QVariant();
 }
 bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, int role) {
+    Q_UNUSED(role)
+
     if (!index.isValid())
         return false;
 
-    QGraphicsSimpleTextItem * item = static_cast <QGraphicsSimpleTextItem *> (index.internalPointer());
+    DesigntTextItem * item = static_cast <DesigntTextItem *> (index.internalPointer());
     switch (index.column()) {
-    case 0:
+    case POS_X:
         item->setX(value.toDouble());
         break;
 
-    case 1:
+    case POS_Y:
         item->setY(value.toDouble());
         break;
 
-    case 2:
+    case TEXT:
         item->setText(value.toString());
         break;
+
+    case TEXT_SIZE:
+        item->setTextSize(value.toReal());
+        break;
+
     }
     return false;
 }
@@ -82,14 +92,17 @@ Qt::ItemFlags DesignCardModel::flags(const QModelIndex &index) const {
 QVariant DesignCardModel::headerData(int section, Qt::Orientation orientation, int role) const {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
-        case 0:
+        case POS_X:
             return "x";
 
-        case 1:
+        case POS_Y:
             return "y";
 
-        case 2:
+        case TEXT:
             return "text";
+
+        case TEXT_SIZE:
+            return "text_size";
         }
     }
 
@@ -111,11 +124,13 @@ void DesignCardModel::add() {
     endInsertRows();
 }
 void DesignCardModel::remove(int row) {
+    if (elements.isEmpty() || elements.length() <= row)
+        return;
+
     beginRemoveRows(QModelIndex(), row, row);
 
-    DesigntTextItem * item = new DesigntTextItem();
+    DesigntTextItem * item = elements.takeAt(row);
     scene->removeItem(item);
-    scene->deleteLater();
 
     endRemoveRows();
 }

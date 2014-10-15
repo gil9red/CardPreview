@@ -14,6 +14,16 @@ class DesignCardModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
+    enum Columns {
+        POS_X,
+        POS_Y,
+        TEXT,
+        TEXT_SIZE,
+
+        COLUMN_COUNTS
+    };
+
+public:
     explicit DesignCardModel(QObject *parent = 0);
     void setScene(QGraphicsScene * s, CardID1 * c);
 
@@ -35,16 +45,12 @@ public slots:
     void remove(int row);
     DesigntTextItem * item(int row) const;
     int getRow(DesigntTextItem * item) const;
-//    QGraphicsSimpleTextItem * item(int row) const;
-//    int getRow(QGraphicsSimpleTextItem * item) const;
 
     void sceneChanged (const QList<QRectF> & region);
 
 private:
     QList <DesigntTextItem *> elements;
-    //QList <QGraphicsSimpleTextItem *> elements;
     QGraphicsScene * scene;
-
     CardID1 * cardID1;
 };
 
