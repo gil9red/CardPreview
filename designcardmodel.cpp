@@ -6,8 +6,10 @@ DesignCardModel::DesignCardModel(QObject *parent) :
 
 }
 
-void DesignCardModel::setScene(QGraphicsScene * s) {
+void DesignCardModel::setScene(QGraphicsScene * s, CardID1 * c) {
     scene = s;
+    cardID1 = c;
+    QObject::connect(scene, SIGNAL(changed(QList<QRectF>)), SLOT(sceneChanged(QList<QRectF>)));
 }
 
 int DesignCardModel::rowCount(const QModelIndex &) const {
@@ -49,6 +51,26 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
     } else
         return QVariant();
 }
+bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, int role) {
+    if (!index.isValid())
+        return false;
+
+    QGraphicsSimpleTextItem * item = static_cast <QGraphicsSimpleTextItem *> (index.internalPointer());
+    switch (index.column()) {
+    case 0:
+        item->setX(value.toDouble());
+        break;
+
+    case 1:
+        item->setY(value.toDouble());
+        break;
+
+    case 2:
+        item->setText(value.toString());
+        break;
+    }
+    return false;
+}
 
 Qt::ItemFlags DesignCardModel::flags(const QModelIndex &index) const {
     if (!index.isValid())
@@ -78,10 +100,10 @@ void DesignCardModel::add() {
     const int row = rowCount();
     beginInsertRows(QModelIndex(), row, row);
 
-    QGraphicsSimpleTextItem * item = new QGraphicsSimpleTextItem();
+    DesigntTextItem * item = new DesigntTextItem();
+    item->setCard(cardID1);
     item->setPos(0.0, 0.0);
     item->setText("empty");
-    item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 
     elements.append(item);
     scene->addItem(item);
@@ -91,12 +113,32 @@ void DesignCardModel::add() {
 void DesignCardModel::remove(int row) {
     beginRemoveRows(QModelIndex(), row, row);
 
-    QGraphicsSimpleTextItem * item = elements.takeAt(row);
+    DesigntTextItem * item = new DesigntTextItem();
     scene->removeItem(item);
     scene->deleteLater();
 
     endRemoveRows();
 }
-QGraphicsSimpleTextItem * DesignCardModel::item(int row) const {
+
+DesigntTextItem * DesignCardModel::item(int row) const {
     return elements.at(row);
+}
+
+int DesignCardModel::getRow(DesigntTextItem * item) const {
+    return elements.indexOf(item);
+}
+
+void DesignCardModel::sceneChanged (const QList<QRectF> & region) {
+    if (region.length() == 2) {
+        QList <QGraphicsItem *> items = scene->items(region[0]);
+        if (items.isEmpty())
+            return;
+
+        DesigntTextItem * item = static_cast <DesigntTextItem *> (items[0]);
+        if (!item)
+            return;
+
+        const int row = getRow(item);
+        emit dataChanged(index(row, 0), index(row, columnCount()));
+    }
 }

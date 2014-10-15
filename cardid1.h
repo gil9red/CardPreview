@@ -8,6 +8,7 @@ class CardID1 : public QGraphicsItemGroup
 {
 public:
     CardID1(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
+    QRectF boundingRect () const;
 
 private:
     QtRoundedRectItem * plate;

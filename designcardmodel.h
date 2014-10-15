@@ -4,6 +4,10 @@
 #include <QAbstractItemModel>
 #include <QGraphicsScene>
 #include <QGraphicsSimpleTextItem>
+#include <QDebug>
+
+#include "designtitem.h"
+#include "cardid1.h"
 
 class DesignCardModel : public QAbstractItemModel
 {
@@ -11,35 +15,16 @@ class DesignCardModel : public QAbstractItemModel
 
 public:
     explicit DesignCardModel(QObject *parent = 0);
-    void setScene(QGraphicsScene * s);
+    void setScene(QGraphicsScene * s, CardID1 * c);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-    QModelIndex index(int row, int column, const QModelIndex &) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
     QModelIndex parent(const QModelIndex &) const;
 
     QVariant data(const QModelIndex &index, int role) const;
-    bool setData(const QModelIndex& index, const QVariant& value, int role) {
-        if (!index.isValid())
-            return false;
-
-        QGraphicsSimpleTextItem * item = static_cast <QGraphicsSimpleTextItem *> (index.internalPointer());
-        switch (index.column()) {
-        case 0:
-            item->setX(value.toDouble());
-            break;
-
-        case 1:
-            item->setY(value.toDouble());
-            break;
-
-        case 2:
-            item->setText(value.toString());
-            break;
-        }
-        return false;
-    }
+    bool setData(const QModelIndex& index, const QVariant& value, int role);
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
@@ -48,11 +33,19 @@ public:
 public slots:
     void add();
     void remove(int row);
-    QGraphicsSimpleTextItem * item(int row) const;
+    DesigntTextItem * item(int row) const;
+    int getRow(DesigntTextItem * item) const;
+//    QGraphicsSimpleTextItem * item(int row) const;
+//    int getRow(QGraphicsSimpleTextItem * item) const;
+
+    void sceneChanged (const QList<QRectF> & region);
 
 private:
-    QList <QGraphicsSimpleTextItem *> elements;
+    QList <DesigntTextItem *> elements;
+    //QList <QGraphicsSimpleTextItem *> elements;
     QGraphicsScene * scene;
+
+    CardID1 * cardID1;
 };
 
 #endif // DESIGNCARDMODEL_H

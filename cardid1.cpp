@@ -12,14 +12,26 @@ CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
     addToGroup(plate);
     addToGroup(chip);
 
-    plate->setRoundedRect(QRectF(0, 0, 85.60, 53.98), 3.0, 3.0);
-    plate->setBrush(QColor("#FFFFF0")); // Слоновая кость #FFFFF0
-    plate->setPen(QPen(Qt::black, 0.5));
+    const QSizeF sizePlate(85.60, 53.98);
+    const QColor colorPlate("#FFFFF0"); // Слоновая кость
 
-    chip->setPos(9.0, 18.0);
-    chip->setRoundedRect(QRectF(0, 0, 14, 11), 2.0, 2.0);
-    chip->setBrush(QColor("#D4AF37")); // Золотой металлик (#D4AF37)
-    chip->setPen(QPen(Qt::black, 0.5));
+    const QPointF posChip(9.0, 18.0);
+    const QSizeF sizeChip(14, 11);
+    const QColor colorChip("#D4AF37"); // Золотой металлик
 
-    setScale(3.0);
+    const float roundRect = 2.2;
+    const QPen pen(Qt::black, 0.7);
+
+    plate->setRoundedRect(QRectF(QPointF(0, 0), sizePlate), roundRect, roundRect);
+    plate->setBrush(colorPlate);
+    plate->setPen(pen);
+
+    chip->setPos(posChip);
+    chip->setRoundedRect(QRectF(QPointF(0, 0), sizeChip), roundRect, roundRect);
+    chip->setBrush(colorChip); // Золотой металлик (#D4AF37)
+    chip->setPen(pen);
+}
+
+QRectF CardID1::boundingRect () const {
+    return plate->boundingRect();
 }
