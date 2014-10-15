@@ -1,8 +1,5 @@
 #include "qtroundedrectitem.h"
 
-#include <cassert>
-#include <sstream>
-#include <QGraphicsScene>
 #include <QPainter>
 
 QtRoundedRectItem::QtRoundedRectItem( QGraphicsItem *parent, QGraphicsScene *scene)

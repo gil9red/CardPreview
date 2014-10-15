@@ -13,12 +13,18 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    dialog.cpp \
-    qtroundedrectitem.cpp
+    qtroundedrectitem.cpp \
+    cardid1.cpp \
+    designtitem.cpp \
+    designcardmodel.cpp \
+    Window.cpp
 
 HEADERS  += \
-    dialog.h \
-    qtroundedrectitem.h
+    qtroundedrectitem.h \
+    cardid1.h \
+    designtitem.h \
+    designcardmodel.h \
+    Window.h
 
 FORMS += \
-    dialog.ui
+    Window.ui

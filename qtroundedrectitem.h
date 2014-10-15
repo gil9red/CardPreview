@@ -6,7 +6,7 @@
 class QtRoundedRectItem : public QGraphicsRectItem
 {
 public:
-    QtRoundedRectItem( QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
+    QtRoundedRectItem(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
 
     void paint( QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget * widget );
 

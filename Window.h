@@ -4,28 +4,29 @@
 #include <QDialog>
 
 namespace Ui {
-class Dialog;
+class Window;
 }
 
 #include <QGraphicsScene>
+#include "designcardmodel.h"
 
-class Dialog : public QDialog
+
+class Window : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Dialog(QWidget *parent = 0);
-    ~Dialog();
+    explicit Window(QWidget *parent = 0);
+    ~Window();
 
 private slots:
     void on_tb_add_clicked();
     void on_tb_rem_clicked();
 
-    void on_tb_upd_scene_clicked();
-
 private:
-    Ui::Dialog *ui;
+    Ui::Window *ui;
     QGraphicsScene scene;
+    DesignCardModel model;
 };
 
 #endif // DIALOG_H
