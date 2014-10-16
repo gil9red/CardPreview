@@ -12,15 +12,21 @@ public:
     DesigntTextItem(QGraphicsItem * parent = 0);
     void setCard(FullCardID1 * c);
 
-//    void setFrontMode(bool front_mode);
-//    bool isFrontMode() const;
+    void setFrontMode(bool front_mode);
+    bool isFrontMode() const;
 
     void setTextSize(qreal size);
-    qreal textSize();
+    qreal textSize() const;
+
+    void setX(qreal x);
+    void setY(qreal y);
+
+    qreal x() const;
+    qreal y() const;
 
 private:
     FullCardID1 * card;
-//    bool front;
+    bool front;
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);

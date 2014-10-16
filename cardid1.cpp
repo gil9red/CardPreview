@@ -4,7 +4,8 @@
 #include <QPen>
 
 CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
-    : QGraphicsItemGroup(parent, scene)
+//    : QGraphicsItemGroup(parent, scene)
+    : QtRoundedRectItem(parent, scene)
 {
     const QSizeF sizePlate(85.60, 53.98);
     const QColor colorPlate("#FFFFF0"); // Слоновая кость
@@ -16,10 +17,14 @@ CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
     const float roundRect = 2.2;
     const QPen pen(Qt::black, 0.7);
 
-    plate = new QtRoundedRectItem();
-    plate->setRoundedRect(QRectF(QPointF(0, 0), sizePlate), roundRect, roundRect);
-    plate->setBrush(colorPlate);
-    plate->setPen(pen);
+    setRoundedRect(QRectF(QPointF(0, 0), sizePlate), roundRect, roundRect);
+    setBrush(colorPlate);
+    setPen(pen);
+
+//    plate = new QtRoundedRectItem();
+//    plate->setRoundedRect(QRectF(QPointF(0, 0), sizePlate), roundRect, roundRect);
+//    plate->setBrush(colorPlate);
+//    plate->setPen(pen);
 
     chip = new QtRoundedRectItem();
     chip->setPos(posChip);
@@ -33,17 +38,23 @@ CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
     magstripe->setBrush(Qt::black);
     magstripe->setPen(Qt::NoPen);
 
-    addToGroup(plate);
-    addToGroup(chip);
-    addToGroup(magstripe);
+    group = new QGraphicsItemGroup();
+//    group->addToGroup(plate);
+    group->addToGroup(chip);
+    group->addToGroup(magstripe);
+    group->setParentItem(this);
+
+//    addToGroup(plate);
+//    addToGroup(chip);
+//    addToGroup(magstripe);
 
     setVisibleChip(false);
     setVisibleMagstripe(false);
 }
 
-QRectF CardID1::boundingRect () const {
-    return plate->boundingRect();
-}
+//QRectF CardID1::boundingRect () const {
+//    return plate->boundingRect();
+//}
 
 void CardID1::setVisibleChip(bool v) {
     chip->setVisible(v);

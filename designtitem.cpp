@@ -11,41 +11,83 @@ DesigntTextItem::DesigntTextItem(QGraphicsItem * parent)
              | QGraphicsItem::ItemSendsGeometryChanges);
 
     setTextSize(4.0);
-//    setFrontMode(true);
+    setFrontMode(true);
 }
 
 void DesigntTextItem::setCard(FullCardID1 * c) {
     card = c;
 }
 
-//void DesigntTextItem::setFrontMode(bool front_mode) {
-//    front = front_mode;
-//}
-//bool DesigntTextItem::isFrontMode() const {
-//    return front;
-//}
+void DesigntTextItem::setFrontMode(bool front_mode) {
+    front = front_mode;
+}
+bool DesigntTextItem::isFrontMode() const {
+    return front;
+}
 
 void DesigntTextItem::setTextSize(qreal size) {
     setFont(QFont("Arial", size));
 }
-qreal DesigntTextItem::textSize() {
+qreal DesigntTextItem::textSize() const {
     return font().pointSizeF();
+}
+
+void DesigntTextItem::setX(qreal x) {
+    // Установка в координаты относительно сцены
+
+    CardID1 * cur_card = front ? card->frontCard() : card->backCard();
+    QGraphicsSimpleTextItem::setX(cur_card->mapToScene(QPointF(x, this->y())).x());
+}
+void DesigntTextItem::setY(qreal y) {
+    // Установка в координаты относительно сцены
+
+    CardID1 * cur_card = front ? card->frontCard() : card->backCard();
+    QGraphicsSimpleTextItem::setY(cur_card->mapToScene(QPointF(this->x(), y)).y());
+}
+
+qreal DesigntTextItem::x() const {
+    // Возврат в координатах от текущей стороны карточки
+
+    CardID1 * cur_card = front ? card->frontCard() : card->backCard();
+
+    if (!cur_card)
+        return QGraphicsSimpleTextItem::x();
+    else
+        return cur_card->mapFromScene(pos()).x();
+}
+qreal DesigntTextItem::y() const {
+    // Возврат в координатах от текущей стороны карточки
+
+    CardID1 * cur_card = front ? card->frontCard() : card->backCard();
+
+    if (!cur_card)
+        return QGraphicsSimpleTextItem::y();
+    else
+        return cur_card->mapFromScene(pos()).y();
 }
 
 QVariant DesigntTextItem::itemChange(GraphicsItemChange change, const QVariant &value) {
     if (change == QGraphicsItem::ItemPositionChange) {
+        CardID1 * cur_card = front ? card->frontCard() : card->backCard();
+
         // value это новое положение.
         QPointF newPos = value.toPointF();
-        const QRectF rect = card->boundingRect();
-//        const QRectF rect = isFrontMode() ? front_card->boundingRect() : back_card->boundingRect();
+//        qDebug() << newPos << cur_card->mapFromScene(newPos);
+        newPos = cur_card->mapFromScene(newPos);
+
+        const QRectF rect = cur_card->boundingRect();
         const QRectF area(newPos, boundingRect().size());
+
+//        qDebug() << rect << area;
 
         if (!rect.contains(area)) {
             // Сохраняем элемент внутри прямоугольника сцены.
             const qreal width = boundingRect().size().width();
             const qreal height = boundingRect().size().height();
+
             newPos.setX(qMin(rect.right() - width, qMax(newPos.x(), rect.left())));
             newPos.setY(qMin(rect.bottom() - height, qMax(newPos.y(), rect.top())));
+            newPos = cur_card->mapToScene(newPos);
             return newPos;
         }
     }

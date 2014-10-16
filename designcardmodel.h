@@ -42,7 +42,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
 public slots:
-    void add();
+    void add(bool front);
     void remove(int row);
     DesigntTextItem * item(int row) const;
     int getRow(DesigntTextItem * item) const;

@@ -8,6 +8,16 @@ FullCardID1::FullCardID1(QGraphicsItem *parent, QGraphicsScene *scene) :
 
     addToGroup(front_card);
     addToGroup(back_card);
+
+//    front_design = new QGraphicsItemGroup();
+//    front_design->setParentItem(this);
+
+//    back_design = new QGraphicsItemGroup();
+//    back_design->setParentItem(this);
+
+////    addToGroup(front_design);
+////    addToGroup(back_design);
+
     back_card->setY(front_card->boundingRect().height() + 10);
 
     front_card->setVisibleChip(true);
@@ -36,4 +46,22 @@ void FullCardID1::setVisibleMagstripe(bool v) {
 }
 bool FullCardID1::isVisibleMagstripe() const {
     return back_card->isVisibleMagstripe();
+}
+
+//void FullCardID1::addDesignElement(QGraphicsItem * item, bool front) {
+//    addToGroup(item);
+
+//    if (front)
+//        item->setPos(item->mapFromItem(front_card), item->pos());
+//    else
+//        item->setPos(item->mapFromItem(back_card), item->pos());
+
+//    if (front)
+//        front_design->addToGroup(item);
+//    else
+//        back_design->addToGroup(item);
+//}
+
+QRectF FullCardID1::boundingRect() const {
+    return QRectF(0, 0, front_card->rect().width(), front_card->rect().height() + back_card->rect().height() + 10);
 }

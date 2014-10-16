@@ -126,18 +126,30 @@ QVariant DesignCardModel::headerData(int section, Qt::Orientation orientation, i
     return QVariant();
 }
 
-void DesignCardModel::add() {
+void DesignCardModel::add(bool front) {
     const int row = rowCount();
     beginInsertRows(QModelIndex(), row, row);
 
+//    DesigntTextItem * item = new DesigntTextItem();
+//    item->setCard(card);
+//    item->setPos(0.0, 0.0);
+//    item->setText("empty");
+
+//    elements.append(item);
+//    scene->addItem(item);
+
+    CardID1 * cur_card = front ? card->frontCard() : card->backCard();
+
     DesigntTextItem * item = new DesigntTextItem();
     item->setCard(card);
-//    item->setFrontMode(false);
     item->setPos(0.0, 0.0);
+    item->setPos(cur_card->mapToItem(item, item->pos()));
+//    qDebug() << item->pos() << cur_card->mapToItem(item, item->pos());
     item->setText("empty");
+    item->setFrontMode(front);
 
-    elements.append(item);
     scene->addItem(item);
+    elements.append(item);
 
     endInsertRows();
 }
