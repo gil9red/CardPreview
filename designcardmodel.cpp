@@ -53,7 +53,7 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
 //            return item->textSize();
 
         case FRONT_SIDE:
-            return true;
+            return item->isFrontMode();
 
         default:
             return QVariant();
@@ -90,7 +90,7 @@ bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, i
         break;
 
     case FRONT_SIDE:
-
+        item->setFrontMode(value.toBool());
         break;
     }
     return false;
