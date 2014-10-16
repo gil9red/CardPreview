@@ -36,16 +36,19 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
         DesigntTextItem * item = static_cast <DesigntTextItem *> (index.internalPointer());
         switch (index.column()) {
         case POS_X:
-            return item->x();
+            return (int) item->x();
+            //return item->x();
 
         case POS_Y:
-            return item->y();
+            return (int) item->y();
+            //return item->y();
 
         case TEXT:
             return item->text();
 
         case TEXT_SIZE:
-            return item->textSize();
+            return (int) item->textSize();
+//            return item->textSize();
 
         default:
             return QVariant();
@@ -63,11 +66,13 @@ bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, i
     DesigntTextItem * item = static_cast <DesigntTextItem *> (index.internalPointer());
     switch (index.column()) {
     case POS_X:
-        item->setX(value.toDouble());
+        item->setX(value.toInt());
+        //item->setX(value.toDouble());
         break;
 
     case POS_Y:
-        item->setY(value.toDouble());
+        item->setY(value.toInt());
+        //item->setY(value.toDouble());
         break;
 
     case TEXT:
@@ -75,7 +80,8 @@ bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, i
         break;
 
     case TEXT_SIZE:
-        item->setTextSize(value.toReal());
+        item->setTextSize(value.toInt());
+        //item->setTextSize(value.toReal());
         break;
 
     }
