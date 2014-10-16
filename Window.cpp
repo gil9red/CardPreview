@@ -5,7 +5,8 @@
 #include "designtitem.h"
 
 #include <QGraphicsLinearLayout>
-
+#include <QSettings>
+#include <QDebug>
 
 Window::Window(QWidget *parent) :
     QWidget(parent),
@@ -16,7 +17,7 @@ Window::Window(QWidget *parent) :
     ui->graphicsView->scale(3.0, 3.0);
     ui->table->setModel(&model);
 
-    ui->splitter->setSizes(QList <int> () << 1 << 1);
+//    ui->splitter->setSizes(QList <int> () << 1 << 1);
 
 //    front_card = new CardID1();
 //    back_card = new CardID1();
@@ -46,6 +47,11 @@ Window::Window(QWidget *parent) :
 //    item->setImage("index.jpg");
 //    item->setImageSize(25, 30);
 //    scene.addItem(item);
+
+
+    QSettings ini("settings.ini", QSettings::IniFormat);
+    ui->splitter->restoreState(ini.value("splitter").toByteArray());
+    restoreGeometry(ini.value("geometry").toByteArray());
 }
 
 Window::~Window()
@@ -76,4 +82,13 @@ void Window::on_cb_magstripe_clicked(bool checked)
 void Window::on_cb_back_side_clicked(bool checked)
 {
     card->backCard()->setVisible(checked);
+}
+
+void Window::closeEvent(QCloseEvent *event) {
+    QSettings ini("settings.ini", QSettings::IniFormat);
+    ini.setValue("geometry", saveGeometry());
+    ini.setValue("splitter", ui->splitter->saveState());
+    ini.sync();
+
+    QWidget::closeEvent(event);
 }

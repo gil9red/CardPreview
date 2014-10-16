@@ -32,8 +32,10 @@ private:
     Ui::Window *ui;
     QGraphicsScene scene;
     DesignCardModel model;
-
     FullCardID1 * card;
+
+protected:
+    void closeEvent(QCloseEvent * event);
 };
 
 #endif // DIALOG_H

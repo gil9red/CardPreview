@@ -19,6 +19,7 @@ public:
         POS_Y,
         TEXT,
         TEXT_SIZE,
+        FRONT_SIDE,
 
         COLUMN_COUNTS
     };

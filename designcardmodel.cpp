@@ -52,6 +52,9 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
             return (int) item->textSize();
 //            return item->textSize();
 
+        case FRONT_SIDE:
+            return true;
+
         default:
             return QVariant();
         }
@@ -86,6 +89,9 @@ bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, i
         //item->setTextSize(value.toReal());
         break;
 
+    case FRONT_SIDE:
+
+        break;
     }
     return false;
 }
@@ -111,6 +117,9 @@ QVariant DesignCardModel::headerData(int section, Qt::Orientation orientation, i
 
         case TEXT_SIZE:
             return "text_size";
+
+        case FRONT_SIDE:
+            return "front_side";
         }
     }
 
