@@ -18,27 +18,28 @@ Window::Window(QWidget *parent) :
 
     ui->splitter->setSizes(QList <int> () << 1 << 1);
 
-    front_card = new CardID1();
-    back_card = new CardID1();
+//    front_card = new CardID1();
+//    back_card = new CardID1();
 
-    QGraphicsItemGroup * group = new QGraphicsItemGroup();
-    group->addToGroup(front_card);
-    group->addToGroup(back_card);
-    back_card->setY(front_card->boundingRect().height() + 10);
+//    QGraphicsItemGroup * group = new QGraphicsItemGroup();
+//    group->addToGroup(front_card);
+//    group->addToGroup(back_card);
+//    back_card->setY(front_card->boundingRect().height() + 10);
 
-    front_card->setVisibleChip(ui->cb_chip->isChecked());
-    back_card->setVisible(ui->cb_back_side->isChecked());
-    back_card->setVisibleMagstripe(ui->cb_magstripe->isChecked());
+//    front_card->setVisibleChip(ui->cb_chip->isChecked());
+//    back_card->setVisible(ui->cb_back_side->isChecked());
+//    back_card->setVisibleMagstripe(ui->cb_magstripe->isChecked());
 
-    scene.addItem(group);
-
-    model.setScene(&scene, front_card/*, back_card*/);
+    card = new FullCardID1();
+    scene.addItem(card);
+    model.setScene(&scene, card);
 
     QObject::connect(ui->table->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
                      SLOT(tableSelectionChanged(QItemSelection,QItemSelection)));
 
     tableSelectionChanged(QItemSelection(), QItemSelection());
 
+    // TODO: нажатием на кнопку текущий выделенный в таблице элемент должен быть выделен на сцене
 
 //    DesigntImageItem * item = new DesigntImageItem();
 //    item->setCard(card);
@@ -66,13 +67,13 @@ void Window::tableSelectionChanged(const QItemSelection &, const QItemSelection 
 }
 void Window::on_cb_chip_clicked(bool checked)
 {
-    front_card->setVisibleChip(checked);
+    card->setVisibleChip(checked);
 }
 void Window::on_cb_magstripe_clicked(bool checked)
 {
-    back_card->setVisibleMagstripe(checked);
+    card->setVisibleMagstripe(checked);
 }
 void Window::on_cb_back_side_clicked(bool checked)
 {
-    back_card->setVisible(checked);
+    card->backCard()->setVisible(checked);
 }

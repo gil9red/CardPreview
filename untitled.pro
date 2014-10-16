@@ -17,14 +17,16 @@ SOURCES += main.cpp \
     cardid1.cpp \
     designtitem.cpp \
     designcardmodel.cpp \
-    Window.cpp
+    Window.cpp \
+    fullcardid1.cpp
 
 HEADERS  += \
     qtroundedrectitem.h \
     cardid1.h \
     designtitem.h \
     designcardmodel.h \
-    Window.h
+    Window.h \
+    fullcardid1.h
 
 FORMS += \
     Window.ui

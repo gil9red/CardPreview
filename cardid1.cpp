@@ -10,7 +10,7 @@ CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
     const QColor colorPlate("#FFFFF0"); // Слоновая кость
 
     const QPointF posChip(9.0, 18.0);
-    const QSizeF sizeChip(14, 11);
+    const QSizeF sizeChip(13, 12);
     const QColor colorChip("#D4AF37"); // Золотой металлик
 
     const float roundRect = 2.2;
@@ -43,4 +43,18 @@ CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
 
 QRectF CardID1::boundingRect () const {
     return plate->boundingRect();
+}
+
+void CardID1::setVisibleChip(bool v) {
+    chip->setVisible(v);
+}
+bool CardID1::isVisibleChip() const {
+    return chip->isVisible();
+}
+
+void CardID1::setVisibleMagstripe(bool v) {
+    magstripe->setVisible(v);
+}
+bool CardID1::isVisibleMagstripe() const {
+    return magstripe->isVisible();
 }

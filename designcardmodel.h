@@ -7,7 +7,7 @@
 #include <QDebug>
 
 #include "designtitem.h"
-#include "cardid1.h"
+#include "fullcardid1.h"
 
 class DesignCardModel : public QAbstractItemModel
 {
@@ -24,8 +24,8 @@ public:
     };
 
 public:
-    explicit DesignCardModel(QObject *parent = 0);
-    void setScene(QGraphicsScene * s, CardID1 * c);
+    DesignCardModel(QObject *parent = 0);
+    void setScene(QGraphicsScene * s, FullCardID1 * c);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -51,7 +51,8 @@ public slots:
 private:
     QList <DesigntTextItem *> elements;
     QGraphicsScene * scene;
-    CardID1 * cardID1;
+
+    FullCardID1 * card;
 };
 
 #endif // DESIGNCARDMODEL_H

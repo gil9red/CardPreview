@@ -2,13 +2,15 @@
 
 DesignCardModel::DesignCardModel(QObject *parent) :
     QAbstractItemModel(parent),
-    scene(0) {
+    scene(0),
+    card(0)
+{
 
 }
 
-void DesignCardModel::setScene(QGraphicsScene * s, CardID1 * c) {
+void DesignCardModel::setScene(QGraphicsScene * s, FullCardID1 * c) {
     scene = s;
-    cardID1 = c;
+    card = c;
     QObject::connect(scene, SIGNAL(changed(QList<QRectF>)), SLOT(sceneChanged(QList<QRectF>)));
 }
 
@@ -120,7 +122,8 @@ void DesignCardModel::add() {
     beginInsertRows(QModelIndex(), row, row);
 
     DesigntTextItem * item = new DesigntTextItem();
-    item->setCard(cardID1);
+    item->setCard(card);
+//    item->setFrontMode(false);
     item->setPos(0.0, 0.0);
     item->setText("empty");
 

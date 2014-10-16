@@ -1,18 +1,29 @@
 #include "designtitem.h"
 
 DesigntTextItem::DesigntTextItem(QGraphicsItem * parent)
-    : QGraphicsSimpleTextItem(parent) {
-
+    : QGraphicsSimpleTextItem(parent),
+      card(0)
+//      front_card(0),
+//      back_card(0)
+{
     setFlags(QGraphicsItem::ItemIsMovable
              | QGraphicsItem::ItemIsSelectable
              | QGraphicsItem::ItemSendsGeometryChanges);
 
     setTextSize(4.0);
+//    setFrontMode(true);
 }
 
-void DesigntTextItem::setCard(CardID1 * c) {
-    cardID1 = c;
+void DesigntTextItem::setCard(FullCardID1 * c) {
+    card = c;
 }
+
+//void DesigntTextItem::setFrontMode(bool front_mode) {
+//    front = front_mode;
+//}
+//bool DesigntTextItem::isFrontMode() const {
+//    return front;
+//}
 
 void DesigntTextItem::setTextSize(qreal size) {
     setFont(QFont("Arial", size));
@@ -22,10 +33,11 @@ qreal DesigntTextItem::textSize() {
 }
 
 QVariant DesigntTextItem::itemChange(GraphicsItemChange change, const QVariant &value) {
-    if (change == QGraphicsItem::ItemPositionChange && cardID1) {
+    if (change == QGraphicsItem::ItemPositionChange) {
         // value это новое положение.
         QPointF newPos = value.toPointF();
-        const QRectF rect = cardID1->boundingRect();
+        const QRectF rect = card->boundingRect();
+//        const QRectF rect = isFrontMode() ? front_card->boundingRect() : back_card->boundingRect();
         const QRectF area(newPos, boundingRect().size());
 
         if (!rect.contains(area)) {

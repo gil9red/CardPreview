@@ -10,7 +10,7 @@ class Window;
 #include <QGraphicsScene>
 #include <QItemSelection>
 #include "designcardmodel.h"
-
+#include "fullcardid1.h"
 
 class Window : public QWidget
 {
@@ -33,8 +33,7 @@ private:
     QGraphicsScene scene;
     DesignCardModel model;
 
-    CardID1 * front_card;
-    CardID1 * back_card;
+    FullCardID1 * card;
 };
 
 #endif // DIALOG_H
