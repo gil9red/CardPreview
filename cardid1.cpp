@@ -6,12 +6,6 @@
 CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
     : QGraphicsItemGroup(parent, scene)
 {
-    plate = new QtRoundedRectItem();
-    chip = new QtRoundedRectItem();
-
-    addToGroup(plate);
-    addToGroup(chip);
-
     const QSizeF sizePlate(85.60, 53.98);
     const QColor colorPlate("#FFFFF0"); // Слоновая кость
 
@@ -22,14 +16,29 @@ CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
     const float roundRect = 2.2;
     const QPen pen(Qt::black, 0.7);
 
+    plate = new QtRoundedRectItem();
     plate->setRoundedRect(QRectF(QPointF(0, 0), sizePlate), roundRect, roundRect);
     plate->setBrush(colorPlate);
     plate->setPen(pen);
 
+    chip = new QtRoundedRectItem();
     chip->setPos(posChip);
     chip->setRoundedRect(QRectF(QPointF(0, 0), sizeChip), roundRect, roundRect);
     chip->setBrush(colorChip); // Золотой металлик (#D4AF37)
     chip->setPen(pen);
+
+    magstripe = new QGraphicsRectItem();
+    magstripe->setPos(0, 5.0);
+    magstripe->setRect(0, 0, sizePlate.width(), 13.0);
+    magstripe->setBrush(Qt::black);
+    magstripe->setPen(Qt::NoPen);
+
+    addToGroup(plate);
+    addToGroup(chip);
+    addToGroup(magstripe);
+
+    setVisibleChip(false);
+    setVisibleMagstripe(false);
 }
 
 QRectF CardID1::boundingRect () const {

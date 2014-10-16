@@ -10,9 +10,24 @@ public:
     CardID1(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
     QRectF boundingRect () const;
 
+    void setVisibleChip(bool v) {
+        chip->setVisible(v);
+    }
+    bool isVisibleChip() const {
+        return chip->isVisible();
+    }
+
+    void setVisibleMagstripe(bool v) {
+        magstripe->setVisible(v);
+    }
+    bool isVisibleMagstripe() const {
+        return magstripe->isVisible();
+    }
+
 private:
     QtRoundedRectItem * plate;
     QtRoundedRectItem * chip;
+    QGraphicsRectItem * magstripe;
 };
 
 #endif // CARDID1_H
