@@ -174,6 +174,7 @@ int DesignCardModel::getRow(DesigntTextItem * item) const {
 }
 
 void DesignCardModel::sceneChanged (const QList<QRectF> & region) {
+    // TODO: добавить комменты / рефакторинг.
     // Алгоритм для определения какой элемент на сцене перемещается
     if (region.length() == 2) {
         QList <QGraphicsItem *> items = scene->items(region[0]);

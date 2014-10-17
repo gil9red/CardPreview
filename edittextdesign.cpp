@@ -31,13 +31,14 @@ void EditTextDesign::setDesignTextItem(DesigntTextItem * dti)
 void EditTextDesign::accept() {
     if (item)
     {
+        QFont font(item->font());
+        font.setBold(ui->cb_bold->isChecked());
+        font.setItalic(ui->cb_italic->isChecked());
+
         item->setVisible(ui->cb_included->isChecked());
         item->setPos(QPointF(ui->sb_x->value(), ui->sb_y->value()));
         item->setTextSize(ui->sb_size_text->value());
         item->setBrush(QColor(ui->le_hex_rgb->text()));
-        QFont font(item->font());
-        font.setBold(ui->cb_bold->isChecked());
-        font.setItalic(ui->cb_italic->isChecked());
         item->setFont(font);
         item->setText(ui->le_text->text());
     }

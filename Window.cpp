@@ -27,6 +27,7 @@ Window::Window(QWidget *parent) :
 
     tableSelectionChanged(QItemSelection(), QItemSelection());
 
+    // TODO: после добавления элемента "изображение" удалить.
     //    DesigntImageItem * item = new DesigntImageItem();
     //    item->setCard(card);
     //    item->setImage("index.jpg");
