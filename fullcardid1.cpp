@@ -9,7 +9,10 @@ FullCardID1::FullCardID1(QGraphicsItem *parent, QGraphicsScene *scene) :
     addToGroup(front_card);
     addToGroup(back_card);
 
-    back_card->setY(front_card->boundingRect().height() + 10);
+    // Расстояние между картами
+    qreal distance = 5.0;
+
+    back_card->setY(front_card->boundingRect().height() + distance);
 
     front_card->setVisibleChip(true);
     front_card->setVisibleMagstripe(false);

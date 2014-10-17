@@ -64,6 +64,8 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
 
     } else
         return QVariant();
+
+    return QVariant();
 }
 bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, int) {
     if (!index.isValid())
