@@ -17,6 +17,7 @@ public:
     enum Columns {
         POS_X,
         POS_Y,
+        INCLUDED,
         TEXT,
         TEXT_SIZE,
         SIDE,

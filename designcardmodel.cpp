@@ -44,6 +44,9 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
             case POS_Y:
                 return (int) item->y();
 
+            case INCLUDED:
+                return item->isVisible();
+
             case TEXT:
                 return item->text();
 
@@ -81,6 +84,10 @@ bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, i
             item->setY(value.toInt());
             break;
 
+        case INCLUDED:
+            item->setVisible(value.toBool());
+            break;
+
         case TEXT:
             item->setText(value.toString());
             break;
@@ -111,6 +118,9 @@ QVariant DesignCardModel::headerData(int section, Qt::Orientation orientation, i
 
             case POS_Y:
                 return "y";
+
+            case INCLUDED:
+                return "included";
 
             case TEXT:
                 return "text";
