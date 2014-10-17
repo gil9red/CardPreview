@@ -9,7 +9,6 @@ DesigntTextItem::DesigntTextItem(QGraphicsItem * parent)
              | QGraphicsItem::ItemSendsGeometryChanges);
 
     setTextSize(4.0);
-//    setFrontMode(true);
 }
 
 void DesigntTextItem::setCard(FullCardID1 * c) {
@@ -31,9 +30,6 @@ void DesigntTextItem::setCard(FullCardID1 * c) {
 //        QGraphicsSimpleTextItem::setPos(cur_card->mapToScene(p));
 //    }
 //}
-//bool DesigntTextItem::isFrontMode() const {
-//    return front;
-//}
 
 void DesigntTextItem::setTextSize(qreal size) {
     setFont(QFont("Arial", size));
@@ -49,18 +45,18 @@ qreal DesigntTextItem::textSize() const {
 QString DesigntTextItem::str_side() const {
     switch (side())
     {
-    case Front:
+    case Front_Side:
         return "front";
 
-    case Back:
+    case Back_Side:
         return "back";
 
-    case None:
+    case None_Side:
         return "none";
     }
 }
 DesigntTextItem::CardSide DesigntTextItem::side() const {
-    CardSide s = None;
+    CardSide s = None_Side;
 
     CardID1 * frontCard = card->frontCard();
     CardID1 * backCard = card->backCard();
@@ -68,10 +64,10 @@ DesigntTextItem::CardSide DesigntTextItem::side() const {
     const QRectF area(scenePos(), boundingRect().size());
 
     if (frontCard->mapToScene(frontCard->rect()).boundingRect().contains(area))
-        return Front;
+        return Front_Side;
 
     else if (backCard->mapToScene(frontCard->rect()).boundingRect().contains(area))
-        return Back;
+        return Back_Side;
 
     return s;
 }
@@ -116,12 +112,8 @@ DesigntTextItem::CardSide DesigntTextItem::side() const {
 
 QVariant DesigntTextItem::itemChange(GraphicsItemChange change, const QVariant &value) {
     if (change == QGraphicsItem::ItemPositionChange) {
-//        CardID1 * cur_card = front ? card->frontCard() : card->backCard();
-
         // value это новое положение.
         QPointF newPos = value.toPointF();
-//        newPos = cur_card->mapFromScene(newPos);
-
         const QRectF rect = card->boundingRect();
         const QRectF area(newPos, boundingRect().size());
 
@@ -132,7 +124,6 @@ QVariant DesigntTextItem::itemChange(GraphicsItemChange change, const QVariant &
 
             newPos.setX(qMin(rect.right() - width, qMax(newPos.x(), rect.left())));
             newPos.setY(qMin(rect.bottom() - height, qMax(newPos.y(), rect.top())));
-//            newPos = cur_card->mapToScene(newPos);
             return newPos;
         }
     }

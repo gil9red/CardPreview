@@ -11,17 +11,14 @@ class DesigntTextItem: public QGraphicsSimpleTextItem
 public :
     enum CardSide
     {
-        Front, // TODO: Front_Side
-        Back,
-        None
+        Front_Side,
+        Back_Side,
+        None_Side
     };
 
 public:
     DesigntTextItem(QGraphicsItem * parent = 0);
     void setCard(FullCardID1 * c);
-
-//    void setFrontMode(bool front_mode);
-//    bool isFrontMode() const;
 
     void setTextSize(qreal size);
     qreal textSize() const;
@@ -39,7 +36,6 @@ public:
 
 private:
     FullCardID1 * card;
-//    bool front;
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
