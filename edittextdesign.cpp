@@ -8,13 +8,12 @@ EditTextDesign::EditTextDesign(QWidget *parent) :
 {
     ui->setupUi(this);
 }
-
 EditTextDesign::~EditTextDesign()
 {
     delete ui;
 }
 
-void EditTextDesign::setDesignTextItem(DesigntTextItem * dti)
+void EditTextDesign::setDesignItem(DesigntTextItem * dti)
 {
     item = dti;
 

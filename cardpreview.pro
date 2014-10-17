@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     designcardmodel.cpp \
     Window.cpp \
     fullcardid1.cpp \
-    edittextdesign.cpp
+    edittextdesign.cpp \
+    editimagedesign.cpp
 
 HEADERS  += \
     qtroundedrectitem.h \
@@ -28,8 +29,10 @@ HEADERS  += \
     designcardmodel.h \
     Window.h \
     fullcardid1.h \
-    edittextdesign.h
+    edittextdesign.h \
+    editimagedesign.h
 
 FORMS += \
     Window.ui \
-    edittextdesign.ui
+    edittextdesign.ui \
+    editimagedesign.ui

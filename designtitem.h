@@ -25,9 +25,7 @@ public:
 
 public:
     DesigntTextItem(QGraphicsItem * parent = 0);
-    virtual int type() const {
-        return TypeDesignItem::TEXT_DESIGN_ITEM;
-    }
+    virtual int type() const;
 
     void setCard(FullCardID1 * c);
 
@@ -57,45 +55,16 @@ protected:
 class DesigntImageItem: public QGraphicsPixmapItem
 {
 public:
-    DesigntImageItem(QGraphicsItem * parent = 0)
-        : QGraphicsPixmapItem(parent),
-          card(0) {
+    DesigntImageItem(QGraphicsItem * parent = 0);
+    virtual int type() const;
 
-        setFlags(QGraphicsItem::ItemIsMovable
-                 | QGraphicsItem::ItemIsSelectable
-                 | QGraphicsItem::ItemSendsGeometryChanges);
+    void setCard(FullCardID1 * c);
 
-        setTransformationMode(Qt::SmoothTransformation);
-    }
-
-    virtual int type() const {
-        return TypeDesignItem::IMAGE_DESIGN_ITEM;
-    }
-
-    void setCard(FullCardID1 * c) {
-        card = c;
-    }
-
-    void setImage(const QPixmap & pixmap) {
-        imagePath = QString();
-        originalPixmap = pixmap;
-    }
-    void setImage(const QString & path) {
-        imagePath = path;
-        originalPixmap.load(imagePath);
-    }
-    QString getImagePath() const {
-        return imagePath;
-    }
-
-    void setImageSize(qreal width, qreal height) {
-        setPixmap(originalPixmap.scaled(width, height,
-                                        Qt::IgnoreAspectRatio,
-                                        Qt::SmoothTransformation));
-    }
-    QSizeF imageSize() const {
-        return pixmap().size();
-    }
+    void setImage(const QPixmap & pixmap);
+    void setImage(const QString & path);
+    QString getImagePath() const;
+    void setImageSize(qreal width, qreal height);
+    QSizeF imageSize() const;
 
 private:
     FullCardID1 * card;
@@ -103,25 +72,7 @@ private:
     QString imagePath;
 
 protected:
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value) {
-        if (change == QGraphicsItem::ItemPositionChange) {
-            // value это новое положение.
-            QPointF newPos = value.toPointF();
-            const QRectF rect = card->boundingRect();
-            const QRectF area(newPos, boundingRect().size());
-
-            if (!rect.contains(area)) {
-                // Сохраняем элемент внутри прямоугольника сцены.
-                const qreal width = boundingRect().size().width();
-                const qreal height = boundingRect().size().height();
-
-                newPos.setX(qMin(rect.right() - width, qMax(newPos.x(), rect.left())));
-                newPos.setY(qMin(rect.bottom() - height, qMax(newPos.y(), rect.top())));
-                return newPos;
-            }
-        }
-        return QGraphicsPixmapItem::itemChange(change, value);
-    }
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 };
 
 #endif // DESIGNTITEM_H

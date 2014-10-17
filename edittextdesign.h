@@ -17,7 +17,7 @@ public:
     explicit EditTextDesign(QWidget *parent = 0);
     ~EditTextDesign();
 
-    void setDesignTextItem(DesigntTextItem * dti);
+    void setDesignItem(DesigntTextItem * dti);
 
 private:
     Ui::EditTextDesign * ui;

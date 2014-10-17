@@ -177,7 +177,6 @@ void DesignCardModel::add_image() {
     QPixmap pixmap(25, 30);
     pixmap.fill(Qt::cyan);
     item->setImage(pixmap);
-    //item->setImage("index.jpg");
     item->setImageSize(25, 30);
 
     add_item(item);

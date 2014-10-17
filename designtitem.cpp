@@ -10,6 +10,9 @@ DesigntTextItem::DesigntTextItem(QGraphicsItem * parent)
 
     setTextSize(4.0);
 }
+int DesigntTextItem::type() const {
+    return TypeDesignItem::TEXT_DESIGN_ITEM;
+}
 
 void DesigntTextItem::setCard(FullCardID1 * c) {
     card = c;
@@ -115,4 +118,66 @@ QVariant DesigntTextItem::itemChange(GraphicsItemChange change, const QVariant &
         }
     }
     return QGraphicsSimpleTextItem::itemChange(change, value);
+}
+
+
+
+
+DesigntImageItem::DesigntImageItem(QGraphicsItem * parent)
+    : QGraphicsPixmapItem(parent),
+      card(0) {
+
+    setFlags(QGraphicsItem::ItemIsMovable
+             | QGraphicsItem::ItemIsSelectable
+             | QGraphicsItem::ItemSendsGeometryChanges);
+
+    setTransformationMode(Qt::SmoothTransformation);
+}
+int DesigntImageItem::type() const {
+    return TypeDesignItem::IMAGE_DESIGN_ITEM;
+}
+
+void DesigntImageItem::setCard(FullCardID1 * c) {
+    card = c;
+}
+
+void DesigntImageItem::setImage(const QPixmap & pixmap) {
+    imagePath = QString();
+    originalPixmap = pixmap;
+}
+void DesigntImageItem::setImage(const QString & path) {
+    imagePath = path;
+    qDebug() << path << originalPixmap.load(imagePath);
+//    originalPixmap.load(imagePath);
+}
+QString DesigntImageItem::getImagePath() const {
+    return imagePath;
+}
+void DesigntImageItem::setImageSize(qreal width, qreal height) {
+    setPixmap(originalPixmap.scaled(width, height,
+                                    Qt::IgnoreAspectRatio,
+                                    Qt::SmoothTransformation));
+}
+QSizeF DesigntImageItem::imageSize() const {
+    return pixmap().size();
+}
+
+QVariant DesigntImageItem::itemChange(GraphicsItemChange change, const QVariant &value) {
+    if (change == QGraphicsItem::ItemPositionChange) {
+        // value это новое положение.
+        QPointF newPos = value.toPointF();
+        const QRectF rect = card->boundingRect();
+        const QRectF area(newPos, boundingRect().size());
+
+        if (!rect.contains(area)) {
+            // Сохраняем элемент внутри прямоугольника сцены.
+            const qreal width = boundingRect().size().width();
+            const qreal height = boundingRect().size().height();
+
+            newPos.setX(qMin(rect.right() - width, qMax(newPos.x(), rect.left())));
+            newPos.setY(qMin(rect.bottom() - height, qMax(newPos.y(), rect.top())));
+            return newPos;
+        }
+    }
+    return QGraphicsPixmapItem::itemChange(change, value);
 }

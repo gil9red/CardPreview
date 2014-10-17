@@ -4,6 +4,7 @@
 #include "cardid1.h"
 #include "designtitem.h"
 #include "edittextdesign.h"
+#include "editimagedesign.h"
 
 #include <QGraphicsLinearLayout>
 #include <QSettings>
@@ -108,9 +109,9 @@ void Window::on_tb_edit_clicked()
                 return;
             }
 
-            EditTextDesign etd;
-            etd.setDesignTextItem(dti);
-            etd.exec();
+            EditTextDesign d;
+            d.setDesignItem(dti);
+            d.exec();
             break;
         }
 
@@ -123,8 +124,9 @@ void Window::on_tb_edit_clicked()
                 return;
             }
 
-            // TODO: добавить редактор для изображений.
-
+            EditImageDesign d;
+            d.setDesignItem(dii);
+            d.exec();
             break;
         }
 
