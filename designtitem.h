@@ -8,7 +8,7 @@
 
 
 namespace TypeDesignItem {
-    const int TEXT_DESIGN_ITEM = 0;
+    const int TEXT_DESIGN_ITEM  = 0;
     const int IMAGE_DESIGN_ITEM = 1;
 }
 
