@@ -26,8 +26,6 @@ private slots:
     void tableSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
     void on_cb_chip_clicked(bool checked);
     void on_cb_magstripe_clicked(bool checked);
-    void on_cb_back_side_clicked(bool checked);
-
     void on_tb_select_item_clicked();
 
 private:

@@ -66,10 +66,6 @@ void Window::on_cb_magstripe_clicked(bool checked)
 {
     card->setVisibleMagstripe(checked);
 }
-void Window::on_cb_back_side_clicked(bool checked)
-{
-    card->backCard()->setVisible(checked);
-}
 
 void Window::closeEvent(QCloseEvent *event)
 {
