@@ -147,8 +147,7 @@ void DesigntImageItem::setImage(const QPixmap & pixmap) {
 }
 void DesigntImageItem::setImage(const QString & path) {
     imagePath = path;
-    qDebug() << path << originalPixmap.load(imagePath);
-//    originalPixmap.load(imagePath);
+    originalPixmap.load(imagePath);
 }
 QString DesigntImageItem::getImagePath() const {
     return imagePath;
