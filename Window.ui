@@ -80,14 +80,14 @@
          <item>
           <widget class="QToolButton" name="tb_rem">
            <property name="text">
-            <string>rem</string>
+            <string>remove</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="tb_select_item">
            <property name="text">
-            <string>sel_item</string>
+            <string>select item</string>
            </property>
           </widget>
          </item>

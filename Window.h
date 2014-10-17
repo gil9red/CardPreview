@@ -4,7 +4,7 @@
 #include <QDialog>
 
 namespace Ui {
-class Window;
+    class Window;
 }
 
 #include <QGraphicsScene>

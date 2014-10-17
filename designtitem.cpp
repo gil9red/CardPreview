@@ -15,22 +15,6 @@ void DesigntTextItem::setCard(FullCardID1 * c) {
     card = c;
 }
 
-//void DesigntTextItem::setFrontMode(bool front_mode) {
-//    if (front == front_mode)
-//        return;
-
-//    // Координаты относительно стороны карты (зависит от front)
-//    QPointF p(x(), y());
-
-//    front = front_mode;
-
-//    if (card) {
-//        // В связи с сменой сторой, сделаем пересчет координат
-//        CardID1 * cur_card = front ? card->frontCard() : card->backCard();
-//        QGraphicsSimpleTextItem::setPos(cur_card->mapToScene(p));
-//    }
-//}
-
 void DesigntTextItem::setTextSize(qreal size) {
     setFont(QFont("Arial", size));
 }
@@ -38,22 +22,49 @@ qreal DesigntTextItem::textSize() const {
     return font().pointSizeF();
 }
 
-//QPointF DesigntTextItem::pos() const {
+QPointF DesigntTextItem::pos() const {
+    CardID1 * card = side_card();
+    if (!card)
+        return QGraphicsSimpleTextItem::pos();
 
-//}
+    return card->mapFromScene(QGraphicsSimpleTextItem::pos());
+}
+qreal DesigntTextItem::x() const {
+    return pos().x();
+}
+qreal DesigntTextItem::y() const {
+    return pos().y();
+}
+
+void DesigntTextItem::setPos(const QPointF & _pos) {
+    CardID1 * card = side_card();
+    QPointF new_pos = _pos;
+    if (card)
+        new_pos = card->mapToScene(_pos);
+
+    QGraphicsSimpleTextItem::setPos(new_pos);
+}
+void DesigntTextItem::setX(qreal x) {
+    setPos(QPointF(x, this->y()));
+}
+void DesigntTextItem::setY(qreal y) {
+    setPos(QPointF(this->x(), y));
+}
 
 QString DesigntTextItem::str_side() const {
     switch (side())
     {
-    case Front_Side:
-        return "front";
+        case Front_Side:
+            return "front";
 
-    case Back_Side:
-        return "back";
+        case Back_Side:
+            return "back";
 
-    case None_Side:
-        return "none";
+        case None_Side:
+            return "none";
     }
+
+    return "none";
 }
 DesigntTextItem::CardSide DesigntTextItem::side() const {
     CardSide s = None_Side;
@@ -71,44 +82,20 @@ DesigntTextItem::CardSide DesigntTextItem::side() const {
 
     return s;
 }
+CardID1 * DesigntTextItem::side_card() const {
+    switch (side()) {
+        case Front_Side:
+            return card->frontCard();
 
-//void DesigntTextItem::setX(qreal x) {
-//    // Установка в координаты относительно сцены
+        case Back_Side:
+            return card->backCard();
 
-//    if (card) {
-//        CardID1 * cur_card = front ? card->frontCard() : card->backCard();
-//        QGraphicsSimpleTextItem::setX(cur_card->mapToScene(QPointF(x, this->y())).x());
-//    } else
-//        QGraphicsSimpleTextItem::setX(x);
-//}
-//void DesigntTextItem::setY(qreal y) {
-//    // Установка в координаты относительно сцены
+        case None_Side:
+            return 0;
+    }
 
-//    if (card) {
-//        CardID1 * cur_card = front ? card->frontCard() : card->backCard();
-//        QGraphicsSimpleTextItem::setY(cur_card->mapToScene(QPointF(this->x(), y)).y());
-//    } else
-//        QGraphicsSimpleTextItem::setY(y);
-//}
-
-//qreal DesigntTextItem::x() const {
-//    // Возврат в координатах от текущей стороны карточки
-
-//    if (card) {
-//        CardID1 * cur_card = front ? card->frontCard() : card->backCard();
-//        return cur_card->mapFromScene(pos()).x();
-//    } else
-//        return QGraphicsSimpleTextItem::x();
-//}
-//qreal DesigntTextItem::y() const {
-//    // Возврат в координатах от текущей стороны карточки
-
-//    if (card) {
-//        CardID1 * cur_card = front ? card->frontCard() : card->backCard();
-//        return cur_card->mapFromScene(pos()).y();
-//    } else
-//        return QGraphicsSimpleTextItem::y();
-//}
+    return 0;
+}
 
 QVariant DesigntTextItem::itemChange(GraphicsItemChange change, const QVariant &value) {
     if (change == QGraphicsItem::ItemPositionChange) {

@@ -23,16 +23,17 @@ public:
     void setTextSize(qreal size);
     qreal textSize() const;
 
-//    QPointF pos() const;
+    QPointF pos() const;
+    qreal x() const;
+    qreal y() const;
 
-//    void setX(qreal x);
-//    void setY(qreal y);
-
-//    qreal x() const;
-//    qreal y() const;
+    void setPos(const QPointF & pos);
+    void setX(qreal x);
+    void setY(qreal y);
 
     QString str_side() const;
     CardSide side() const;
+    CardID1 * side_card() const;
 
 private:
     FullCardID1 * card;

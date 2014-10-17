@@ -26,11 +26,11 @@ Window::Window(QWidget *parent) :
 
     tableSelectionChanged(QItemSelection(), QItemSelection());
 
-//    DesigntImageItem * item = new DesigntImageItem();
-//    item->setCard(card);
-//    item->setImage("index.jpg");
-//    item->setImageSize(25, 30);
-//    scene.addItem(item);
+    //    DesigntImageItem * item = new DesigntImageItem();
+    //    item->setCard(card);
+    //    item->setImage("index.jpg");
+    //    item->setImageSize(25, 30);
+    //    scene.addItem(item);
 
 
     QSettings ini("settings.ini", QSettings::IniFormat);

@@ -38,23 +38,23 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
 
     if (role == Qt::DisplayRole || role == Qt::EditRole) {
         switch (index.column()) {
-        case POS_X:
-            return (int) item->x();
+            case POS_X:
+                return (int) item->x();
 
-        case POS_Y:
-            return (int) item->y();
+            case POS_Y:
+                return (int) item->y();
 
-        case TEXT:
-            return item->text();
+            case TEXT:
+                return item->text();
 
-        case TEXT_SIZE:
-            return (int) item->textSize();
+            case TEXT_SIZE:
+                return (int) item->textSize();
 
-        case SIDE:
-            return item->str_side();
+            case SIDE:
+                return item->str_side();
 
-        default:
-            return QVariant();
+            default:
+                return QVariant();
         }
 
     } else if (role == Qt::BackgroundRole) {
@@ -73,21 +73,21 @@ bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, i
 
     DesigntTextItem * item = static_cast <DesigntTextItem *> (index.internalPointer());
     switch (index.column()) {
-    case POS_X:
-        item->setX(value.toInt());
-        break;
+        case POS_X:
+            item->setX(value.toInt());
+            break;
 
-    case POS_Y:
-        item->setY(value.toInt());
-        break;
+        case POS_Y:
+            item->setY(value.toInt());
+            break;
 
-    case TEXT:
-        item->setText(value.toString());
-        break;
+        case TEXT:
+            item->setText(value.toString());
+            break;
 
-    case TEXT_SIZE:
-        item->setTextSize(value.toInt());
-        break;
+        case TEXT_SIZE:
+            item->setTextSize(value.toInt());
+            break;
     }
     return false;
 }
@@ -106,20 +106,20 @@ Qt::ItemFlags DesignCardModel::flags(const QModelIndex &index) const {
 QVariant DesignCardModel::headerData(int section, Qt::Orientation orientation, int role) const {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
-        case POS_X:
-            return "x";
+            case POS_X:
+                return "x";
 
-        case POS_Y:
-            return "y";
+            case POS_Y:
+                return "y";
 
-        case TEXT:
-            return "text";
+            case TEXT:
+                return "text";
 
-        case TEXT_SIZE:
-            return "text_size";
+            case TEXT_SIZE:
+                return "text_size";
 
-        case SIDE:
-            return "side";
+            case SIDE:
+                return "side";
         }
     }
 
@@ -134,7 +134,8 @@ void DesignCardModel::add() {
 
     DesigntTextItem * item = new DesigntTextItem();
     item->setCard(card);
-    item->setPos(cur_card->rect().width() / 2.0, cur_card->rect().height() / 2.0);
+    item->setPos(QPointF(cur_card->rect().width() / 2.0,
+                         cur_card->rect().height() / 2.0));
     item->setText("empty");
 
     scene->addItem(item);
