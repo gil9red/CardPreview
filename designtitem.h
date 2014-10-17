@@ -76,6 +76,10 @@ public:
         card = c;
     }
 
+    void setImage(const QPixmap & pixmap) {
+        imagePath = QString();
+        originalPixmap = pixmap;
+    }
     void setImage(const QString & path) {
         imagePath = path;
         originalPixmap.load(imagePath);

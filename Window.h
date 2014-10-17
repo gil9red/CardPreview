@@ -21,13 +21,13 @@ public:
     ~Window();
 
 private slots:
-    void on_tb_add_clicked();
+    void on_tb_add_text_clicked();
+    void on_tb_add_image_clicked();
     void on_tb_rem_clicked();
     void tableSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
     void on_cb_chip_clicked(bool checked);
     void on_cb_magstripe_clicked(bool checked);
     void on_tb_select_item_clicked();
-
     void on_tb_edit_clicked();
 
 private:

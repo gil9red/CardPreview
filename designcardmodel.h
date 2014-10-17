@@ -19,10 +19,10 @@ public:
         POS_X,
         POS_Y,
 
-        TEXT, // TODO: убрать
-        TEXT_SIZE, // TODO: убрать
+        TYPE_ITEM,
+//        TEXT,
+//        TEXT_SIZE,
 
-        // TODO: добавить тип (текст или изображения)
         // TODO: данные: если текст -- его значение, если изображение, то имя файла
 
         SIDE,
@@ -48,15 +48,17 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
 public slots:
-    void add();
+    void add_item(QGraphicsItem * item);
+    void add_text();
+    void add_image();
     void remove(int row);
-    DesigntTextItem * item(int row) const;
+    QGraphicsItem * item(int row) const;
     int getRow(DesigntTextItem * item) const;
 
     void sceneChanged (const QList<QRectF> & region);
 
 private:
-    QList <DesigntTextItem *> elements;
+    QList <QGraphicsItem *> elements;
     QGraphicsScene * scene;
 
     FullCardID1 * card;

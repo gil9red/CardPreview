@@ -47,11 +47,22 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
             case INCLUDED:
                 return item->isVisible();
 
-            case TEXT:
-                return item->text();
+            case TYPE_ITEM:
+                switch (item->type())
+                {
+                    case TypeDesignItem::TEXT_DESIGN_ITEM:
+                        return "text";
 
-            case TEXT_SIZE:
-                return (int) item->textSize();
+                    case TypeDesignItem::IMAGE_DESIGN_ITEM:
+                        return "image";
+                }
+                return "unknown";
+
+//            case TEXT:
+//                return item->text();
+
+//            case TEXT_SIZE:
+//                return (int) item->textSize();
 
             case SIDE:
                 return item->str_side();
@@ -88,13 +99,13 @@ bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, i
             item->setVisible(value.toBool());
             break;
 
-        case TEXT:
-            item->setText(value.toString());
-            break;
+//        case TEXT:
+//            item->setText(value.toString());
+//            break;
 
-        case TEXT_SIZE:
-            item->setTextSize(value.toInt());
-            break;
+//        case TEXT_SIZE:
+//            item->setTextSize(value.toInt());
+//            break;
     }
     return false;
 }
@@ -122,11 +133,14 @@ QVariant DesignCardModel::headerData(int section, Qt::Orientation orientation, i
             case INCLUDED:
                 return "included";
 
-            case TEXT:
-                return "text";
+            case TYPE_ITEM:
+                return "type";
 
-            case TEXT_SIZE:
-                return "text_size";
+//            case TEXT:
+//                return "text";
+
+//            case TEXT_SIZE:
+//                return "text_size";
 
             case SIDE:
                 return "side";
@@ -135,23 +149,38 @@ QVariant DesignCardModel::headerData(int section, Qt::Orientation orientation, i
 
     return QVariant();
 }
-
-void DesignCardModel::add() {
+void DesignCardModel::add_item(QGraphicsItem * item) {
     const int row = rowCount();
     beginInsertRows(QModelIndex(), row, row);
-
-    CardID1 * cur_card = card->frontCard();
-
-    DesigntTextItem * item = new DesigntTextItem();
-    item->setCard(card);
-    item->setPos(QPointF(cur_card->rect().width() / 2.0,
-                         cur_card->rect().height() / 2.0));
-    item->setText("empty");
 
     scene->addItem(item);
     elements.append(item);
 
     endInsertRows();
+}
+void DesignCardModel::add_text() {
+    DesigntTextItem * item = new DesigntTextItem();
+    CardID1 * cur_card = card->frontCard();
+    item->setCard(card);
+    item->setPos(QPointF(cur_card->rect().width() / 2.0,
+                         cur_card->rect().height() / 2.0));
+    item->setText("empty");
+
+    add_item(item);
+}
+void DesignCardModel::add_image() {
+    DesigntImageItem * item = new DesigntImageItem();
+    CardID1 * cur_card = card->frontCard();
+    item->setCard(card);
+    item->setPos(QPointF(cur_card->rect().width() / 2.0,
+                         cur_card->rect().height() / 2.0));
+    QPixmap pixmap(25, 30);
+    pixmap.fill(Qt::cyan);
+    item->setImage(pixmap);
+    //item->setImage("index.jpg");
+    item->setImageSize(25, 30);
+
+    add_item(item);
 }
 void DesignCardModel::remove(int row) {
     if (elements.isEmpty() || elements.length() <= row)
@@ -159,13 +188,13 @@ void DesignCardModel::remove(int row) {
 
     beginRemoveRows(QModelIndex(), row, row);
 
-    DesigntTextItem * item = elements.takeAt(row);
+    QGraphicsItem * item = elements.takeAt(row);
     scene->removeItem(item);
 
     endRemoveRows();
 }
 
-DesigntTextItem * DesignCardModel::item(int row) const {
+QGraphicsItem * DesignCardModel::item(int row) const {
     return elements.at(row);
 }
 

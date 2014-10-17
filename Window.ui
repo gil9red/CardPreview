@@ -71,9 +71,16 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QToolButton" name="tb_add">
+          <widget class="QToolButton" name="tb_add_text">
            <property name="text">
-            <string>add</string>
+            <string>add text</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="tb_add_image">
+           <property name="text">
+            <string>add image</string>
            </property>
           </widget>
          </item>

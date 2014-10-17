@@ -9,6 +9,10 @@
 #include <QSettings>
 #include <QDebug>
 
+
+#define WARNING( msg ) qWarning( "\"%s\": in file \"%s\", func \"%s\", line %i", qPrintable( msg ), __FILE__, __FUNCTION__, __LINE__ );
+
+
 Window::Window(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Window)
@@ -27,14 +31,6 @@ Window::Window(QWidget *parent) :
 
     tableSelectionChanged(QItemSelection(), QItemSelection());
 
-    // TODO: после добавления элемента "изображение" удалить.
-    //    DesigntImageItem * item = new DesigntImageItem();
-    //    item->setCard(card);
-    //    item->setImage("index.jpg");
-    //    item->setImageSize(25, 30);
-    //    scene.addItem(item);
-
-
     QSettings ini("settings.ini", QSettings::IniFormat);
     ui->splitter->restoreState(ini.value("splitter").toByteArray());
     restoreGeometry(ini.value("geometry").toByteArray());
@@ -45,9 +41,13 @@ Window::~Window()
     delete ui;
 }
 
-void Window::on_tb_add_clicked()
+void Window::on_tb_add_text_clicked()
 {
-    model.add();
+    model.add_text();
+}
+void Window::on_tb_add_image_clicked()
+{
+    model.add_image();
 }
 void Window::on_tb_rem_clicked()
 {
@@ -89,14 +89,46 @@ void Window::on_tb_select_item_clicked()
         gi->setSelected(false);
 
     // Выделяем текущий элемент таблицы
-    DesigntTextItem * item = model.item(index);
+    QGraphicsItem * item = model.item(index);
     item->setSelected(true);
 }
 void Window::on_tb_edit_clicked()
 {
     const int index = ui->table->currentIndex().row();
 
-    EditTextDesign etd;
-    etd.setDesignTextItem(model.item(index));
-    etd.exec();
+    QGraphicsItem * item = model.item(index);
+    switch (item->type())
+    {
+        case TypeDesignItem::TEXT_DESIGN_ITEM:
+        {
+            DesigntTextItem * dti = dynamic_cast <DesigntTextItem *> (item);
+            if (!dti)
+            {
+                WARNING("Pointer on DesigntTextItem is null!");
+                return;
+            }
+
+            EditTextDesign etd;
+            etd.setDesignTextItem(dti);
+            etd.exec();
+            break;
+        }
+
+        case TypeDesignItem::IMAGE_DESIGN_ITEM:
+        {
+            DesigntImageItem * dii = dynamic_cast <DesigntImageItem *> (item);
+            if (!dii)
+            {
+                WARNING("Pointer on DesigntImageItem is null!");
+                return;
+            }
+
+            // TODO: добавить редактор для изображений.
+
+            break;
+        }
+
+        default:
+            WARNING("Unknown item design type!");
+    }
 }
