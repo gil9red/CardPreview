@@ -78,16 +78,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="cb_front">
-           <property name="text">
-            <string>front</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QToolButton" name="tb_rem">
            <property name="text">
             <string>rem</string>

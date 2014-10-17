@@ -45,7 +45,7 @@ Window::~Window()
 
 void Window::on_tb_add_clicked()
 {
-    model.add(ui->cb_front->isChecked());
+    model.add();
 }
 void Window::on_tb_rem_clicked()
 {

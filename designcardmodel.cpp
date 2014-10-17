@@ -49,12 +49,18 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
         case TEXT_SIZE:
             return (int) item->textSize();
 
-        case FRONT_SIDE:
-            return item->isFrontMode();
+        case SIDE:
+            return item->str_side();
 
         default:
             return QVariant();
         }
+
+    } else if (role == Qt::BackgroundRole) {
+        // Если текущая сторона элемента None (т.е. не передняя и не задняя), выделяем этот элемент в таблице
+        DesigntTextItem * item = static_cast <DesigntTextItem *> (index.internalPointer());
+        if (index.column() == SIDE && item->side() == DesigntTextItem::None)
+            return Qt::red;
 
     } else
         return QVariant();
@@ -82,10 +88,6 @@ bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, i
     case TEXT_SIZE:
         item->setTextSize(value.toInt());
         break;
-
-    case FRONT_SIDE:
-        item->setFrontMode(value.toBool());
-        break;
     }
     return false;
 }
@@ -94,7 +96,11 @@ Qt::ItemFlags DesignCardModel::flags(const QModelIndex &index) const {
     if (!index.isValid())
         return 0;
 
-    return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
+    // Столбцев SIDE только для чтения
+    if (index.column() == SIDE)
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    else
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
 }
 
 QVariant DesignCardModel::headerData(int section, Qt::Orientation orientation, int role) const {
@@ -112,25 +118,26 @@ QVariant DesignCardModel::headerData(int section, Qt::Orientation orientation, i
         case TEXT_SIZE:
             return "text_size";
 
-        case FRONT_SIDE:
-            return "front_side";
+        case SIDE:
+            return "side";
         }
     }
 
     return QVariant();
 }
 
-void DesignCardModel::add(bool front) {
+void DesignCardModel::add() {
     const int row = rowCount();
     beginInsertRows(QModelIndex(), row, row);
 
-    CardID1 * cur_card = front ? card->frontCard() : card->backCard();
+//    CardID1 * cur_card = front ? card->frontCard() : card->backCard();
+    CardID1 * cur_card = card->frontCard();
 
     DesigntTextItem * item = new DesigntTextItem();
     item->setCard(card);
     item->setPos(cur_card->rect().width() / 2.0, cur_card->rect().height() / 2.0);
     item->setText("empty");
-    item->setFrontMode(front);
+//    item->setFrontMode(front);
 
     scene->addItem(item);
     elements.append(item);

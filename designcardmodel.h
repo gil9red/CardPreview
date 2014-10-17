@@ -19,7 +19,7 @@ public:
         POS_Y,
         TEXT,
         TEXT_SIZE,
-        FRONT_SIDE,
+        SIDE,
 
         COLUMN_COUNTS
     };
@@ -42,7 +42,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
 public slots:
-    void add(bool front);
+    void add();
     void remove(int row);
     DesigntTextItem * item(int row) const;
     int getRow(DesigntTextItem * item) const;
