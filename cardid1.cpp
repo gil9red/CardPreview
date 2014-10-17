@@ -4,7 +4,6 @@
 #include <QPen>
 
 CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
-//    : QGraphicsItemGroup(parent, scene)
     : QtRoundedRectItem(parent, scene)
 {
     const QSizeF sizePlate(85.60, 53.98);
@@ -21,11 +20,6 @@ CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
     setBrush(colorPlate);
     setPen(pen);
 
-//    plate = new QtRoundedRectItem();
-//    plate->setRoundedRect(QRectF(QPointF(0, 0), sizePlate), roundRect, roundRect);
-//    plate->setBrush(colorPlate);
-//    plate->setPen(pen);
-
     chip = new QtRoundedRectItem();
     chip->setPos(posChip);
     chip->setRoundedRect(QRectF(QPointF(0, 0), sizeChip), roundRect, roundRect);
@@ -39,22 +33,13 @@ CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
     magstripe->setPen(Qt::NoPen);
 
     group = new QGraphicsItemGroup();
-//    group->addToGroup(plate);
     group->addToGroup(chip);
     group->addToGroup(magstripe);
     group->setParentItem(this);
 
-//    addToGroup(plate);
-//    addToGroup(chip);
-//    addToGroup(magstripe);
-
     setVisibleChip(false);
     setVisibleMagstripe(false);
 }
-
-//QRectF CardID1::boundingRect () const {
-//    return plate->boundingRect();
-//}
 
 void CardID1::setVisibleChip(bool v) {
     chip->setVisible(v);

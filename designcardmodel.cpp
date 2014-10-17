@@ -39,18 +39,15 @@ QVariant DesignCardModel::data(const QModelIndex &index, int role) const {
         switch (index.column()) {
         case POS_X:
             return (int) item->x();
-            //return item->x();
 
         case POS_Y:
             return (int) item->y();
-            //return item->y();
 
         case TEXT:
             return item->text();
 
         case TEXT_SIZE:
             return (int) item->textSize();
-//            return item->textSize();
 
         case FRONT_SIDE:
             return item->isFrontMode();
@@ -72,12 +69,10 @@ bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, i
     switch (index.column()) {
     case POS_X:
         item->setX(value.toInt());
-        //item->setX(value.toDouble());
         break;
 
     case POS_Y:
         item->setY(value.toInt());
-        //item->setY(value.toDouble());
         break;
 
     case TEXT:
@@ -86,7 +81,6 @@ bool DesignCardModel::setData(const QModelIndex& index, const QVariant& value, i
 
     case TEXT_SIZE:
         item->setTextSize(value.toInt());
-        //item->setTextSize(value.toReal());
         break;
 
     case FRONT_SIDE:
@@ -130,21 +124,11 @@ void DesignCardModel::add(bool front) {
     const int row = rowCount();
     beginInsertRows(QModelIndex(), row, row);
 
-//    DesigntTextItem * item = new DesigntTextItem();
-//    item->setCard(card);
-//    item->setPos(0.0, 0.0);
-//    item->setText("empty");
-
-//    elements.append(item);
-//    scene->addItem(item);
-
     CardID1 * cur_card = front ? card->frontCard() : card->backCard();
 
     DesigntTextItem * item = new DesigntTextItem();
     item->setCard(card);
-    item->setPos(0.0, 0.0);
-    item->setPos(cur_card->mapToItem(item, item->pos()));
-//    qDebug() << item->pos() << cur_card->mapToItem(item, item->pos());
+    item->setPos(cur_card->rect().width() / 2.0, cur_card->rect().height() / 2.0);
     item->setText("empty");
     item->setFrontMode(front);
 

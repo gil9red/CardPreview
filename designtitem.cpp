@@ -3,8 +3,6 @@
 DesigntTextItem::DesigntTextItem(QGraphicsItem * parent)
     : QGraphicsSimpleTextItem(parent),
       card(0)
-//      front_card(0),
-//      back_card(0)
 {
     setFlags(QGraphicsItem::ItemIsMovable
              | QGraphicsItem::ItemIsSelectable
@@ -88,13 +86,10 @@ QVariant DesigntTextItem::itemChange(GraphicsItemChange change, const QVariant &
 
         // value это новое положение.
         QPointF newPos = value.toPointF();
-//        qDebug() << newPos << cur_card->mapFromScene(newPos);
         newPos = cur_card->mapFromScene(newPos);
 
         const QRectF rect = cur_card->boundingRect();
         const QRectF area(newPos, boundingRect().size());
-
-//        qDebug() << rect << area;
 
         if (!rect.contains(area)) {
             // Сохраняем элемент внутри прямоугольника сцены.

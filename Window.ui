@@ -105,6 +105,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QToolButton" name="tb_select_item">
+           <property name="text">
+            <string>sel_item</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
