@@ -3,6 +3,7 @@
 
 #include "cardid1.h"
 #include "designtitem.h"
+#include "edittextdesign.h"
 
 #include <QGraphicsLinearLayout>
 #include <QSettings>
@@ -57,6 +58,7 @@ void Window::tableSelectionChanged(const QItemSelection &, const QItemSelection 
 
     ui->tb_rem->setEnabled(has_selection);
     ui->tb_select_item->setEnabled(has_selection);
+    ui->tb_edit->setEnabled(has_selection);
 }
 void Window::on_cb_chip_clicked(bool checked)
 {
@@ -88,4 +90,12 @@ void Window::on_tb_select_item_clicked()
     // Выделяем текущий элемент таблицы
     DesigntTextItem * item = model.item(index);
     item->setSelected(true);
+}
+void Window::on_tb_edit_clicked()
+{
+    const int index = ui->table->currentIndex().row();
+
+    EditTextDesign etd;
+    etd.setDesignTextItem(model.item(index));
+    etd.exec();
 }

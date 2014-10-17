@@ -15,11 +15,13 @@ class DesignCardModel : public QAbstractItemModel
 
 public:
     enum Columns {
+        INCLUDED,
         POS_X,
         POS_Y,
-        INCLUDED,
+
         TEXT,
         TEXT_SIZE,
+
         SIDE,
 
         COLUMN_COUNTS

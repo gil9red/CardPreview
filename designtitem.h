@@ -1,6 +1,7 @@
 #ifndef DESIGNTITEM_H
 #define DESIGNTITEM_H
 
+
 #include <QGraphicsScene>
 #include <QDebug>
 #include "fullcardid1.h"

@@ -28,6 +28,8 @@ private slots:
     void on_cb_magstripe_clicked(bool checked);
     void on_tb_select_item_clicked();
 
+    void on_tb_edit_clicked();
+
 private:
     Ui::Window *ui;
     QGraphicsScene scene;
