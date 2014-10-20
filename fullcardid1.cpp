@@ -1,5 +1,8 @@
 #include "fullcardid1.h"
 
+// Расстояние между картами
+const qreal distance = 5.0;
+
 FullCardID1::FullCardID1(QGraphicsItem *parent, QGraphicsScene *scene) :
     QGraphicsItemGroup(parent, scene)
 {
@@ -8,9 +11,6 @@ FullCardID1::FullCardID1(QGraphicsItem *parent, QGraphicsScene *scene) :
 
     addToGroup(front_card);
     addToGroup(back_card);
-
-    // Расстояние между картами
-    qreal distance = 5.0;
 
     back_card->setY(front_card->boundingRect().height() + distance);
 
@@ -43,5 +43,5 @@ bool FullCardID1::isVisibleMagstripe() const {
 }
 
 QRectF FullCardID1::boundingRect() const {
-    return QRectF(0, 0, front_card->rect().width(), front_card->rect().height() + back_card->rect().height() + 10);
+    return QRectF(0, 0, front_card->rect().width(), front_card->rect().height() + back_card->rect().height() + distance);
 }
