@@ -4,6 +4,7 @@
 #include <QGraphicsItemGroup>
 #include "qtroundedrectitem.h"
 
+// TODO: переименовать в CardSideID1
 class CardID1 : public QtRoundedRectItem
 {
 public:

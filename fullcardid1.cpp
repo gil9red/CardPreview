@@ -1,7 +1,9 @@
 #include "fullcardid1.h"
 
+
 // Расстояние между картами
 const qreal distance = 5.0;
+
 
 FullCardID1::FullCardID1(QGraphicsItem *parent, QGraphicsScene *scene) :
     QGraphicsItemGroup(parent, scene)

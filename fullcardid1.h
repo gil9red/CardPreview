@@ -4,6 +4,7 @@
 #include <QGraphicsItemGroup>
 #include "cardid1.h"
 
+// TODO: переименовать в CardID1
 class FullCardID1 : public QGraphicsItemGroup
 {
 public:
