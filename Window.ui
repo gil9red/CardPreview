@@ -92,13 +92,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="tb_select_item">
-           <property name="text">
-            <string>select item</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QToolButton" name="tb_edit">
            <property name="text">
             <string>edit</string>

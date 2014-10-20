@@ -36,7 +36,7 @@ void EditTextDesign::accept() {
 
         item->setVisible(ui->cb_included->isChecked());
         item->setPos(QPointF(ui->sb_x->value(), ui->sb_y->value()));
-        item->setTextSize(ui->sb_size_text->value());  // TODO: не меняет
+        item->setTextSize(ui->sb_size_text->value());
         item->setBrush(QColor(ui->le_hex_rgb->text()));
         item->setFont(font);
         item->setText(ui->le_text->text());

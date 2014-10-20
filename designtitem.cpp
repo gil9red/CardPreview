@@ -22,7 +22,7 @@ void DesigntTextItem::setCard(FullCardID1 * c) {
 
 void DesigntTextItem::setTextSize(qreal size) {
     // TODO: не меняет размер шрифта
-    qDebug() << size;
+    qDebug() << size << textSize();
     QFont f = font();
     f.setPointSizeF(size);
     setFont(f);

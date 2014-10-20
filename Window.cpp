@@ -59,7 +59,6 @@ void Window::tableSelectionChanged(const QItemSelection &, const QItemSelection 
     const bool has_selection = ui->table->selectionModel()->hasSelection();
 
     ui->tb_rem->setEnabled(has_selection);
-    ui->tb_select_item->setEnabled(has_selection);
     ui->tb_edit->setEnabled(has_selection);
 }
 void Window::on_cb_chip_clicked(bool checked)
