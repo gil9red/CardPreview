@@ -10,6 +10,8 @@ DesigntTextItem::DesigntTextItem(QGraphicsItem * parent)
 
     QFont f = font();
     f.setFamily("Arial");
+    setFont(f);
+
     setTextSize(4.0);
 }
 int DesigntTextItem::type() const {
@@ -22,10 +24,11 @@ void DesigntTextItem::setCard(FullCardID1 * c) {
 
 void DesigntTextItem::setTextSize(qreal size) {
     // TODO: не меняет размер шрифта
-    qDebug() << size << textSize();
+//    qreal ts = font().pointSizeF();
     QFont f = font();
     f.setPointSizeF(size);
     setFont(f);
+//    qDebug() << size << ts << textSize();
 }
 qreal DesigntTextItem::textSize() const {
     return font().pointSizeF();
