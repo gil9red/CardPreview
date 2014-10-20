@@ -201,6 +201,15 @@ int DesignCardModel::getRow(DesigntTextItem * item) const {
     return elements.indexOf(item);
 }
 
+void DesignCardModel::selectItem(int index) {
+    // Убираем выделение всех элементов
+    foreach (QGraphicsItem * gi, scene->selectedItems())
+        gi->setSelected(false);
+
+    // Выделяем элемент сцены
+    item(index)->setSelected(true);
+}
+
 void DesignCardModel::sceneChanged (const QList<QRectF> & region) {
     // TODO: добавить комменты / рефакторинг.
     // Алгоритм для определения какой элемент на сцене перемещается

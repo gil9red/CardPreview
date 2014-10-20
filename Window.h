@@ -30,6 +30,8 @@ private slots:
     void on_tb_select_item_clicked();
     void on_tb_edit_clicked();
 
+    void on_table_clicked(const QModelIndex &index);
+
 private:
     Ui::Window *ui;
     QGraphicsScene scene;

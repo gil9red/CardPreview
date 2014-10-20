@@ -18,13 +18,7 @@ public:
         INCLUDED,
         POS_X,
         POS_Y,
-
         TYPE_ITEM,
-//        TEXT,
-//        TEXT_SIZE,
-
-        // TODO: данные: если текст -- его значение, если изображение, то имя файла
-
         SIDE,
 
         COLUMN_COUNTS
@@ -54,6 +48,7 @@ public slots:
     void remove(int row);
     QGraphicsItem * item(int row) const;
     int getRow(DesigntTextItem * item) const;
+    void selectItem(int index);
 
     void sceneChanged (const QList<QRectF> & region);
 

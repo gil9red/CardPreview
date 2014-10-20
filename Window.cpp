@@ -81,18 +81,6 @@ void Window::closeEvent(QCloseEvent *event)
     QWidget::closeEvent(event);
 }
 
-void Window::on_tb_select_item_clicked()
-{
-    const int index = ui->table->currentIndex().row();
-
-    // Убираем выделение всех элементов
-    foreach (QGraphicsItem * gi, scene.selectedItems())
-        gi->setSelected(false);
-
-    // Выделяем текущий элемент таблицы
-    QGraphicsItem * item = model.item(index);
-    item->setSelected(true);
-}
 void Window::on_tb_edit_clicked()
 {
     const int index = ui->table->currentIndex().row();
@@ -133,4 +121,9 @@ void Window::on_tb_edit_clicked()
         default:
             WARNING("Unknown item design type!");
     }
+}
+
+void Window::on_table_clicked(const QModelIndex &index)
+{
+    model.selectItem(index.row());
 }

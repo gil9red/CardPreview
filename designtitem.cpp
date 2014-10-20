@@ -8,6 +8,8 @@ DesigntTextItem::DesigntTextItem(QGraphicsItem * parent)
              | QGraphicsItem::ItemIsSelectable
              | QGraphicsItem::ItemSendsGeometryChanges);
 
+    QFont f = font();
+    f.setFamily("Arial");
     setTextSize(4.0);
 }
 int DesigntTextItem::type() const {
@@ -19,7 +21,11 @@ void DesigntTextItem::setCard(FullCardID1 * c) {
 }
 
 void DesigntTextItem::setTextSize(qreal size) {
-    setFont(QFont("Arial", size));
+    // TODO: не меняет размер шрифта
+    qDebug() << size;
+    QFont f = font();
+    f.setPointSizeF(size);
+    setFont(f);
 }
 qreal DesigntTextItem::textSize() const {
     return font().pointSizeF();
