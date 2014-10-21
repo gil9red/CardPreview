@@ -6,6 +6,12 @@
 CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
     : QtRoundedRectItem(parent, scene)
 {
+// TODO: указывать размер в миллиметрах.
+// Пример:
+//    int PixelWidthDimension = myWidget->logicalDpiX(); //width dots per inch
+//    int PixelHeightDimesion = myWidget->logicalDpiY(); //width dots per inch
+//    double inch = (double)myWidthInPixel / (double)PixelWidthDimension;
+
     const QSizeF sizePlate(85.60, 53.98);
     const QColor colorPlate("#FFFFF0"); // Слоновая кость
 
