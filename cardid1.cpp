@@ -11,6 +11,9 @@ CardID1::CardID1(QGraphicsItem *parent, QGraphicsScene *scene)
 //    int PixelWidthDimension = myWidget->logicalDpiX(); //width dots per inch
 //    int PixelHeightDimesion = myWidget->logicalDpiY(); //width dots per inch
 //    double inch = (double)myWidthInPixel / (double)PixelWidthDimension;
+// https://en.wikipedia.org/wiki/ISO/IEC_7810:
+// "The ID-1 format specifies a size of 85.60 × 53.98 mm (3.370 × 2.125 in) and rounded corners with a radius of 2.88–3.48 mm."
+
 
     const QSizeF sizePlate(85.60, 53.98);
     const QColor colorPlate("#FFFFF0"); // Слоновая кость
