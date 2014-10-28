@@ -211,6 +211,7 @@ void DesignCardModel::selectItem(int index) {
 }
 
 void DesignCardModel::sceneChanged (const QList<QRectF> & region) {
+    // TODO: по-моему, лучше сделать через переопределение события void mouseMoveEvent у графических элементов.
     // TODO: добавить комменты / рефакторинг.
     // Алгоритм для определения какой элемент на сцене перемещается
     if (region.length() == 2) {
@@ -218,6 +219,7 @@ void DesignCardModel::sceneChanged (const QList<QRectF> & region) {
         if (items.isEmpty())
             return;
 
+        // TODO: для DesigntImageItem тоже нужно сделать
         DesigntTextItem * item = static_cast <DesigntTextItem *> (items[0]);
         if (!item)
             return;
